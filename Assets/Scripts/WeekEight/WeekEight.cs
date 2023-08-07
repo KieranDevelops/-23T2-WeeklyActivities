@@ -8,21 +8,34 @@ public class WeekEight : MonoBehaviour
     public static UnityEvent pauseGameEvent = new UnityEvent();
     public bool isGamePaused = false;
 
+    //public static UnityEvent scorePointsEvent = new UnityIntEvent();
+
+    public delegate void IntDelegate(int amount);
+    public static IntDelegate scorePointsDelEvent;
+    public static IntDelegate healtPointsDelEvent; 
+
     public static int health = 100;
+    public int score = 0;
 
     public bool isMoving = false;
 
     private void OnEnable()
     {
-        pauseGameEvent.AddListener(PauseGame);
-       // FindObjectOfType<WeekEight>().pauseGameEvent.AddListener(EnableMovement);
+        //scorePointsEvent.AddListener(ScorePoints);
+        //scorePointsEvent.AddListener(PauseGame);
 
-   }
+        scorePointsDelEvent += ScorePoints;
+        // FindObjectOfType<WeekEight>().pauseGameEvent.AddListener(EnableMovement);
+
+    }
 
     private void OnDisable()
     {
-        pauseGameEvent.RemoveListener(PauseGame);
-   }
+        //scorePointsEvent.RemoveListener(ScorePoints);
+        //scorePointsEvent.RemoveListener(PauseGame);
+
+        scorePointsDelEvent -= ScorePoints;
+    }
 
     private void EnableMovement()
     {
@@ -55,10 +68,17 @@ public class WeekEight : MonoBehaviour
 
 
     }
-    private void PauseGame()
+
+    
+
+    private void PauseGame(int someAmount)
     {
         isGamePaused = !isGamePaused;
     }
+    public void ScorePoints(int amount)
+       {
+        score += amount;
 
+        }
 
 }

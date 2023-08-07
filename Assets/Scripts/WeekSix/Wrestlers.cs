@@ -21,7 +21,12 @@ public class Wrestlers : MonoBehaviour
         
     }
 
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        //WeekEight.scorePointsEvent?.Invoke(Random.Range (0, 4));
+
+        WeekEight.scorePointsDelEvent?.Invoke(Random.Range (0, 4));
+    } 
 
 
 }
